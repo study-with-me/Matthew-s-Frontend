@@ -1,0 +1,39 @@
+/* a little bit of CSS to make it bearable */
+h2 {
+    font-size: 18px;
+    padding: 10px 20px;
+}
+
+#chat-window {
+    height: 400px;
+    overflow: auto;
+}
+
+#output p {
+    padding: 14px 0px;
+    margin: 0 20px;
+    border-bottom: 1px;
+}
+
+#feedback p {
+    padding: 14px 0px;
+    margin: 0 20px;
+}
+
+input {
+    padding: 10px 20px;
+    border: 0;
+    display: block;
+    width: 100%;
+}
+
+#send {
+    border: 0;
+    padding: 12px 0;
+    width: 100%;
+}
+
+#upload {
+    border: 0;
+    margin: 0 20px;
+}
