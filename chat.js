@@ -5,9 +5,8 @@ var username = document.getElementById("username");
 var btn = document.getElementById("send");
 var output = document.getElementById("output");
 var feedback = document.getElementById("feedback");
-var img = document.getElementById("filebox").files[0];
-var upload = document.getElementById("upload");
-var imgChunks = [];
+const NUMSLICES = 1000000
+// TODO: Fox, define the file here based on your UI
 
 // Emit message
 btn.addEventListener("click", function(){
@@ -34,12 +33,16 @@ socket.on("chat", function(data){
     feedback.innerHTML = ""; // clears the [___] is typing... msg
 });
 
-socket.on("typing", function(data){
-    feedback.innerHTML = "<p><em>" + data + " is typing...</em></p>";
-});
+var fileReader = new FileReader(), 
+    slice = file.slice(0, 100000); 
 
-socket.on("img-chunk", function(chunk){
-    imgChunks.push(chunk);
-    img.setAttribute ("src", "data:image/jpeg;base64" +
-    window.btoa(imgChunks));
-});
+fileReader.readAsArrayBuffer(slice); 
+fileReader.onload = (evt) => {
+    var arrayBuffer = fileReader.result; 
+    socket.emit('slice upload', { 
+        name: file.name, 
+        type: file.type, 
+        size: file.size, 
+        data: arrayBuffer 
+    }); 
+}
